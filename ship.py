@@ -10,7 +10,7 @@ class Ship:
             ai_game.screen
         )  # ai_game is an instance of object AlienInvasion, that has attribute screen, settings
         self.screen_rect = (
-            ai_game.get_rect()
+            ai_game.screen.get_rect()
         )  # haven't defined this method inside AlienInvasion????????
 
         # Load the ship image and get its rect.
@@ -26,8 +26,8 @@ class Ship:
             self.screen_rect.midbottom
         )  # image midbottom location is screen_rect midbottom loc
 
-        def blitme(self):
-            """Draw the ship at its current location."""
-            self.screen.blit(
-                self.image, self.rect
-            )  # draws the image to the screen at the position specified by self.rect
+    def blitme(self):
+        """Draw the ship at its current location."""
+        self.screen.blit(
+            self.image, self.rect
+        )  # draws the image to the screen at the position specified by self.rect
