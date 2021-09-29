@@ -28,7 +28,9 @@ class AlienInvasion:
         """
 
         pygame.display.set_caption("Alien Invasion")
-        self.ship = Ship(self)
+        self.ship = Ship(
+            self
+        )  # e call to Ship() requires one argument, an instance of AlienInvasion
 
         """         # 2. Set the background color
                 self.bg_color = (
@@ -41,19 +43,32 @@ class AlienInvasion:
         """Start the main loop for the game."""
         while True:
             # Watch for keyboard and mouse events.
-            for event in pygame.event.get():
-                # action that user performs, eg. press a key, move the mouse.
-                # return a list of events since last time get() called
-                #
-                if event.type == pygame.QUIT:  # click the game wind close button
-                    sys.exit()  # exit the game
+            """for event in pygame.event.get():
+            # action that user performs, eg. press a key, move the mouse.
+            # return a list of events since last time get() called
+            #
+            if event.type == pygame.QUIT:  # click the game wind close button
+                sys.exit()  # exit the game"""
 
-            # Redrawn the screen during each pass through the loop.
+            """ # Redrawn the screen during each pass through the loop.
             self.screen.fill(self.settings.bg_color)
             self.ship.blitme()
-
             # Make the most recently drawn screen visible.
-            pygame.display.flip()  # disply most recently drawn game window, update continually
+            pygame.display.flip()  # disply most recently drawn game window, update continually """
+
+            self._check_events()  # refactoring to simplify...use a helper method inside a class, not called by an instance
+            self._update_screen()
+
+    def _check_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+
+    def _update_screen(self):
+        """update ... and flip ..."""
+        self.screen.fill(self.settings.bg_color)
+        self.ship.blitme()
+        pygame.display.flip()
 
 
 if __name__ == "__main__":
