@@ -5,6 +5,7 @@ import pygame
 from settings import Settings
 
 from ship import Ship
+from superman import Superman
 
 
 class AlienInvasion:
@@ -38,6 +39,7 @@ class AlienInvasion:
                     230,
                     230,
                 )  # ????????why not called some method on display? """
+        self.superman = Superman(self)
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -67,7 +69,8 @@ class AlienInvasion:
     def _update_screen(self):
         """update ... and flip ..."""
         self.screen.fill(self.settings.bg_color)
-        self.ship.blitme()
+        # self.ship.blitme()
+        self.superman.blitme()
         pygame.display.flip()
 
 
