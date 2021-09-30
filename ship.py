@@ -24,10 +24,13 @@ class Ship:
         # Start each new ship at the bottom center of the screen.
         self.rect.midbottom = (
             self.screen_rect.midbottom
-        )  # image midbottom location is screen_rect midbottom loc
+        )  # image midbottom location is screen_rect midbottom loc; bounding rectangle attributs of locations
 
     def blitme(self):
         """Draw the ship at its current location."""
         self.screen.blit(
             self.image, self.rect
         )  # draws the image to the screen at the position specified by self.rect
+
+
+print("")
