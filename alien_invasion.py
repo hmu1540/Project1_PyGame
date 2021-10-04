@@ -33,40 +33,40 @@ class AlienInvasion:
         """Start the main loop for the game."""
         while True:
             # Watch for keyboard and mouse events.
-            """for event in pygame.event.get():
-            # action that user performs, eg. press a key, move the mouse.
-            # return a list of events since last time get() called
-            #
-            if event.type == pygame.QUIT:  # click the game wind close button
-                sys.exit()  # exit the game"""
-
-            """ # Redrawn the screen during each pass through the loop.
-            self.screen.fill(self.settings.bg_color)
-            self.ship.blitme()
-            # Make the most recently drawn screen visible.
-            pygame.display.flip() 
-            # disply most recently drawn game window, update continually """
-
-            self._check_events()  # refactoring to simplify...use a helper method inside a class, not called by an instance
+            # refactoring to simplify...use a helper method inside a class, not called by an instance
+            self._check_events()
+            self.ship.update()
             self._update_screen()
 
     def _check_events(self):
+        # action that user performs, eg. press a key, move the mouse.
+        # return a list of events since last time get() called
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-            elif event.key == pygame.KEYDOWN:
+            # click the game window close button, exit the game
+            elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
-                    self.ship.rect.x += 1
+                    self.ship.moving_right = True
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = True
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = False
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = False
+                # We can use elif blocks here because each event is connected to only one key.???????????????????
+                # If the player presses both keys at once, two separate events will be detected.
 
     def _update_screen(self):
         """update ... and flip ..."""
+
         self.screen.fill(self.settings.bg_color)
+        # Redrawn the screen during each pass through the loop.
         self.ship.blitme()
-        """ self.superman.scale()
-        self.superman.set_color()
-        self.superman.blitme()
-        """
+        # Make the most recently drawn screen visible
         pygame.display.flip()
+        # disply most recently drawn game window, update continually
 
 
 if __name__ == "__main__":
