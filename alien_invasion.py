@@ -42,21 +42,8 @@ class AlienInvasion:
             # refactoring to simplify...use a helper method inside a class, not called by an instance
             self._check_events()
             self.ship.update()
-            self.bullets.update()  # the group automatically calls update() for each sprite in the group, i.e., update each bullet in the group we built
-
-            # Get rid of bullet that have disappeared to aviod unnecessary storage consumption
-            for (
-                bullet
-            ) in (
-                self.bullets.copy()
-            ):  # a copy of bullets list stays the same in the loop
-                if (
-                    bullet.rect.bottom <= 0
-                ):  # why not rect.y? rect is a shape of all points data
-                    self.bullets.remove(bullet)  # the bullets list changes in the list
-                # print(len(self.bullets))
-
             self._update_screen()
+            self._update_bullets()
 
     def _check_events(self):
         # action that user performs, eg. press a key, move the mouse.
@@ -96,6 +83,21 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+
+    def _update_bullets(self):
+        """Update position of bullet and get rid of old bullets."""
+        # Update bullets postions.
+        self.bullets.update()  # the group automatically calls update() for each sprite in the group, i.e., update each bullet in the group we built
+
+        # Get rid of bullet that have disappeared to aviod unnecessary storage consumption
+        for (
+            bullet
+        ) in self.bullets.copy():  # a copy of bullets list stays the same in the loop
+            if (
+                bullet.rect.bottom <= 0
+            ):  # why not rect.y? rect is a shape of all points data
+                self.bullets.remove(bullet)  # the bullets list changes in the list
+            # print(len(self.bullets))
 
     def _update_screen(self):
         """update ... and flip ..."""
