@@ -36,9 +36,10 @@ class Ship:
 
     def update(self):
         # Update the ship's x value, not the rect.
-        if self.moving_right:
+        if self.moving_right and self.rect.right < self.screen_rect.right:
+            # self.rect.right returns the x­coordinate of the right edge of the ship’s rect
             self.x += self.settings.ship_speed
-        if self.moving_left:
+        if self.moving_left and self.rect.left > 0:
             # not elif to allow x vlaues  to be increased and then decreased when both arrow keys
             # are held down.makes the movements more accurate when switching from right to left
             # when the player might momentarily hold down both keys.
