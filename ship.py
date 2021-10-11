@@ -9,6 +9,7 @@ class Ship:
         self.screen = (
             ai_game.screen
         )  # ai_game is an instance of object AlienInvasion, that has attribute screen, settings
+        self.settings = ai_game.settings
         self.screen_rect = (
             ai_game.screen.get_rect()
         )  # haven't defined this method inside AlienInvasion????????
@@ -26,19 +27,27 @@ class Ship:
             self.screen_rect.midbottom
         )  # image midbottom location is screen_rect midbottom loc; bounding rectangle attributs of locations
 
+        # Store a decimal value for the ship's horizontal position.
+        self.x = float(self.rect.x)
+
         #
         self.moving_right = False
         self.moving_left = False
 
     def update(self):
+        # Update the ship's x value, not the rect.
         if self.moving_right:
-            self.rect.x += 1
+            self.x += self.settings.ship_speed
         if self.moving_left:
-            # not elif to allow x vlaues  to be increased and then decreased when both arrow keys 
+            # not elif to allow x vlaues  to be increased and then decreased when both arrow keys
             # are held down.makes the movements more accurate when switching from right to left
             # when the player might momentarily hold down both keys.
-            
-            self.rect.x -= 1
+
+            self.x -= self.settings.ship_speed
+
+        # rect will only keep the integer portion of that value.
+        # To keep track of the ship’s position accurately, we define a new self.x attribute that can hold decimal values
+        self.rect.x = self.x
 
     def blitme(self):
         """Draw the ship at its current location."""
