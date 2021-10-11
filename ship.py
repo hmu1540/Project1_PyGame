@@ -26,11 +26,22 @@ class Ship:
             self.screen_rect.midbottom
         )  # image midbottom location is screen_rect midbottom loc; bounding rectangle attributs of locations
 
+        #
+        self.moving_right = False
+        self.moving_left = False
+
+    def update(self):
+        if self.moving_right:
+            self.rect.x += 1
+        if self.moving_left:
+            # not elif to allow x vlaues  to be increased and then decreased when both arrow keys 
+            # are held down.makes the movements more accurate when switching from right to left
+            # when the player might momentarily hold down both keys.
+            
+            self.rect.x -= 1
+
     def blitme(self):
         """Draw the ship at its current location."""
         self.screen.blit(
             self.image, self.rect
         )  # draws the image to the screen at the position specified by self.rect
-
-
-print("")
