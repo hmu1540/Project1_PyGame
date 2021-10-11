@@ -46,8 +46,9 @@ class AlienInvasion:
             # refactoring to simplify...use a helper method inside a class, not called by an instance
             self._check_events()
             self.ship.update()
-            self._update_screen()
             self._update_bullets()
+            self._update_aliens()  # aliens can be hit by bullets, thus following update_bullets()
+            self._update_screen()
 
     def _check_events(self):
         # action that user performs, eg. press a key, move the mouse.
@@ -102,6 +103,10 @@ class AlienInvasion:
             ):  # why not rect.y? rect is a shape of all points data
                 self.bullets.remove(bullet)  # the bullets list changes in the list
             # print(len(self.bullets))
+
+    def _update_aliens(self):
+        """Update the positions of all aliens in the fleet."""
+        self.aliens.update()
 
     def _create_fleet(self):
         """Create the fleet of aliens."""
