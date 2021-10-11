@@ -43,6 +43,19 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self.bullets.update()  # the group automatically calls update() for each sprite in the group, i.e., update each bullet in the group we built
+
+            # Get rid of bullet that have disappeared to aviod unnecessary storage consumption
+            for (
+                bullet
+            ) in (
+                self.bullets.copy()
+            ):  # a copy of bullets list stays the same in the loop
+                if (
+                    bullet.rect.bottom <= 0
+                ):  # why not rect.y? rect is a shape of all points data
+                    self.bullets.remove(bullet)  # the bullets list changes in the list
+                # print(len(self.bullets))
+
             self._update_screen()
 
     def _check_events(self):
