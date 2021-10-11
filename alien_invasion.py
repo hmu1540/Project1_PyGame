@@ -14,11 +14,15 @@ class AlienInvasion:
         # attribute settings is an instance of Settings object, so it has attributs, methods
 
         self.screen = pygame.display.set_mode(
-            (self.settings.screen_width, self.settings.screen_height)
-        )  # don't think this is a good way, access attributes directly instead of via methods
+            (0, 0), pygame.FULLSCREEN
+        )  # figure out a window size that will fill the screen
+        self.settings.screen_width = (
+            self.screen.get_rect().width
+        )  # update these settings after the screen is created
+        self.settings.screen_height = self.screen.get_rect().height
 
         """ 
-        RHS Creates a display window 1200 pi * 800 pi
+        RHS Creates a display window 1200 pi * 800 pi   
         RHS is called a surface: part of a screen for displaying a game element
         Each element is its own surface, like an alien or a ship 
         display.set_mode() represents the entire game window, redrawn in loop
@@ -48,7 +52,7 @@ class AlienInvasion:
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
-                self._check_keyup_envets(event)
+                self._check_keyup_events(event)
                 # We can use elif blocks here because each event is connected to only one key.???????????????????
                 # If the player presses both keys at once, two separate events will be detected.
 
