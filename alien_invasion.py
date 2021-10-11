@@ -32,6 +32,7 @@ class AlienInvasion:
         self.ship = Ship(
             self
         )  # e call to Ship() requires one argument, an instance of AlienInvasion
+        self.bullets = pygame.sprite.Group()  # ????????????/
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -40,6 +41,7 @@ class AlienInvasion:
             # refactoring to simplify...use a helper method inside a class, not called by an instance
             self._check_events()
             self.ship.update()
+            self.bullets.update()  # the group automatically calls update() for each sprite in the group, i.e., update each bullet in the group we built
             self._update_screen()
 
     def _check_events(self):
