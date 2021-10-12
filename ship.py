@@ -55,3 +55,8 @@ class Ship:
         self.screen.blit(
             self.image, self.rect
         )  # draws the image to the screen at the position specified by self.rect
+
+    def center_ship(self):
+        """Center the ship on the screen."""
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)  # allow to track the ship's exact positon
