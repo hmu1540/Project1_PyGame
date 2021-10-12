@@ -49,9 +49,12 @@ class AlienInvasion:
             # Watch for keyboard and mouse events.
             # refactoring to simplify...use a helper method inside a class, not called by an instance
             self._check_events()
-            self.ship.update()
-            self._update_bullets()
-            self._update_aliens()  # aliens can be hit by bullets, thus following update_bullets()
+
+            if self.stats.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self._update_aliens()  # aliens can be hit by bullets, thus following update_bullets()
+
             self._update_screen()
 
     def _check_events(self):
@@ -135,18 +138,21 @@ class AlienInvasion:
         if pygame.sprite.spritecollideany(
             self.ship, self.aliens
         ):  # returns the first alien it finds that has collided with ship or return None.
-            # print("Ship hit!!!")
+
             self._ship_hit()
+            # print("Ship hit!!!")
+            # print("Hit alien, left ", self.stats.ships_left)
 
         # Look for aliens hitting the bottom of the screen.
         self._check_aliens_bottom()
 
     def _ship_hit(self):
         """Respond to the ship being hit by an alien."""
-        if self.stats.ships_left > 0:
-            # Decrement ships_left.
-            self.stats.ships_left -= 1
+        # Decrement ships_left.
+        self.stats.ships_left -= 1
+        # print(self.stats.ships_left)
 
+        if self.stats.ships_left > 0:
             # Get rid of any remaining aliens and bullets.
             self.aliens.empty()
             self.bullets.empty()
@@ -226,6 +232,8 @@ class AlienInvasion:
             if alien.rect.bottom >= screen_rect.bottom:
                 # Treat this the same as if the ship got hit.
                 self._ship_hit()
+                # print("Ship hit!!!")
+                # print("hit bottom, left: ", self.stats.ships_left)
                 break
 
 
