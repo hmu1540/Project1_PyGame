@@ -132,6 +132,7 @@ class AlienInvasion:
             self.ship, self.aliens
         ):  # returns the first alien it finds that has collided with ship or return None.
             print("Ship hit!!!")
+            print()
 
     def _create_fleet(self):
         """Create the fleet of aliens."""
