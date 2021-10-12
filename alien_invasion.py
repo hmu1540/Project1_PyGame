@@ -172,7 +172,7 @@ class AlienInvasion:
             ) in (
                 collisions.values()
             ):  # collisions.values is a list of values. Each list element could be a list of aliens.
-                self.stats.score += self.settings.aliens_points * len(aliens)
+                self.stats.score += self.settings.alien_points * len(aliens)
 
             self.sb.prep_score()
 
