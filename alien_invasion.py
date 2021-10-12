@@ -162,6 +162,12 @@ class AlienInvasion:
             self.bullets, self.aliens, True, True
         )  # Delete both sprites if collided
 
+        if (
+            collisions
+        ):  # return a collisions dictornary, check whether the dictionary exist???????????????????
+            self.stats.score += self.settings.aliens_points
+            self.sb.prep_score()
+
         if not self.aliens:  # check for empty aliens, then create a new fleet
             # Destroy existing bullets and create new fleet.
             self.bullets.empty()
