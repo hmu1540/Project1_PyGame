@@ -100,7 +100,9 @@ class AlienInvasion:
             self.ship.center_ship()
 
             # Hide the mouse cursor.
-            pygame.mouse.set_visible(False) # Hide the cursor when the mouse is over the game window.
+            pygame.mouse.set_visible(
+                False
+            )  # Hide the cursor when the mouse is over the game window.
 
     # two helper methods
     def _check_keydown_events(self, event):
@@ -156,6 +158,7 @@ class AlienInvasion:
             # Destroy existing bullets and create new fleet.
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
     def _update_aliens(self):
         """
