@@ -65,15 +65,28 @@ class AlienInvasion:
         # action that user performs, eg. press a key, move the mouse.
         # return a list of events since last time get() called
         for event in pygame.event.get():
+            # click the game window close button, exit the game
             if event.type == pygame.QUIT:
                 sys.exit()
-            # click the game window close button, exit the game
+
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
                 # We can use elif blocks here because each event is connected to only one key.???????????????????
                 # If the player presses both keys at once, two separate events will be detected.
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = (
+                    pygame.mouse.get_pos()
+                )  # return a tuple(x,y) of the mouse cursor
+                self._check_play_button(
+                    mouse_pos
+                )  # restrict mousebuttondown event only to play button
+
+    def _check_play_button(self, mouse_pos):
+        """Start a new game when the player clicks play."""
+        if self.play_button.rect.collidepoint(mouse_pos):
+            self.stats.game_active = True
 
     # two helper methods
     def _check_keydown_events(self, event):
